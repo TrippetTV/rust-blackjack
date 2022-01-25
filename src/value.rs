@@ -37,7 +37,7 @@ impl Value {
             Value::Jack => 11,
             Value::Queen => 12,
             Value::King => 13,
-            _ => todo!("No number set for {}.", self),
+            _ => panic!("No number set for {}.", self),
         }
     }
 }

@@ -1,3 +1,5 @@
+use crate::dealer::Dealer;
+use crate::player::Player;
 use crate::playerlist::PlayerList;
 use crate::Deck;
 
@@ -40,7 +42,8 @@ impl Game {
     fn set_table(&mut self) {
         self.deck = Deck::new();
         self.deck.deck_shuffle();
-        self.deck.deck_shuffle();
-        self.players = PlayerList::new()
+        self.players = PlayerList::new();
+        self.players
+            .add_player(Player::new("Jack Black the Dealer".to_string()))
     }
 }
