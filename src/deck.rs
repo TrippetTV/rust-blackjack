@@ -1,10 +1,8 @@
 use crate::{Card, Suit, Value};
-use std::fmt;
-use std::fmt::Formatter;
-use strum::IntoEnumIterator;
-
 use rand::seq::SliceRandom;
 use rand::thread_rng;
+use std::fmt;
+use strum::IntoEnumIterator;
 
 #[derive(Debug)]
 pub struct Deck {
@@ -12,7 +10,7 @@ pub struct Deck {
 }
 
 impl fmt::Display for Deck {
-    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{:#?}", self.cards)
     }
 }

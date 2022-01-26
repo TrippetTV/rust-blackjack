@@ -1,19 +1,16 @@
 //TODO: A different version of player
 
-use crate::Card;
+use crate::player::Player;
 
+#[derive(Debug)]
 pub struct Dealer {
-    name: String,
-    hand: Vec<Card>,
-    score: u8,
+    pub(crate) player: Player,
 }
 
 impl Dealer {
     pub(crate) fn new(name: &str) -> Dealer {
         Dealer {
-            name: name.to_string(),
-            hand: vec![],
-            score: 0,
+            player: Player::new(name.to_string()),
         }
     }
 }

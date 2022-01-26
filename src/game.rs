@@ -1,5 +1,3 @@
-use crate::dealer::Dealer;
-use crate::player::Player;
 use crate::playerlist::PlayerList;
 use crate::Deck;
 
@@ -17,7 +15,8 @@ impl GameHandler {
     }
     /// Starts a new game with new players
     pub(crate) fn start(&mut self) {
-        self.current_game.set_table()
+        self.current_game.set_table();
+        self.current_game.play_game();
     }
     /// Cleans "the table"
     pub(crate) fn end(&self) {
@@ -43,7 +42,10 @@ impl Game {
         self.deck = Deck::new();
         self.deck.deck_shuffle();
         self.players = PlayerList::new();
-        self.players
-            .add_player(Player::new("Jack Black the Dealer".to_string()))
+    }
+    ///
+    // TODO move to GameHandler, probably
+    fn play_game(&mut self) {
+        self.players.turn(&mut self.deck);
     }
 }

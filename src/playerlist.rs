@@ -1,35 +1,41 @@
+use crate::dealer::Dealer;
+use crate::member::Member;
 use crate::player::Player;
+use crate::Deck;
 
 #[derive(Debug)]
 pub struct PlayerList {
-    players: Vec<Player>,
-    current_player: u8,
+    players: Vec<Member>,
+    current_player: usize,
 }
 
 impl PlayerList {
     pub(crate) fn new() -> PlayerList {
-        let mut players: Vec<Player> = vec![];
+        let mut members: Vec<Member> = vec![];
 
         for i in 0..4 {
-            players.push(Player::new(String::from("Player ") + &*i.to_string()))
+            members.push(Member::Player(Player::new(
+                String::from("Player ") + &*i.to_string(),
+            )))
         }
-
-        let current_player = &players[0];
+        members.push(Member::Dealer(Dealer::new("Jack Black the Dealer")));
 
         return PlayerList {
-            players,
+            players: members,
             current_player: 0,
         };
     }
 
-    fn next_player(&self) -> u8 {
+    fn next_player(&self) -> usize {
+        //TODO wrap counting to account for dealer and size of PlayerList (self)
         let mut index = self.current_player;
         index += 1; // increment
         index %= 6; // modulus
-        println!("Current player index: {}", index);
+        println!("Previous index: {} Current index: {}", index - 1, index);
         return index;
     }
-    pub(crate) fn add_player(&mut self, player: Player) {
-        self.players.push(player)
+    pub(crate) fn turn(&mut self, ctx: &mut Deck) {
+        self.players[self.current_player].turn(ctx);
+        self.next_player();
     }
 }
