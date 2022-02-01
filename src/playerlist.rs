@@ -2,11 +2,12 @@ use crate::dealer::Dealer;
 use crate::member::Member;
 use crate::player::Player;
 use crate::Deck;
+use std::ops::Add;
 
 #[derive(Debug)]
 pub struct PlayerList {
-    players: Vec<Member>,
-    current_player: usize,
+    pub(crate) players: Vec<Member>,
+    pub(crate) current_index: usize,
 }
 
 impl PlayerList {
@@ -15,27 +16,26 @@ impl PlayerList {
 
         for i in 0..4 {
             members.push(Member::Player(Player::new(
-                String::from("Player ") + &*i.to_string(),
+                String::from("Player ").add(&*i.to_string()),
             )))
         }
         members.push(Member::Dealer(Dealer::new("Jack Black the Dealer")));
 
         return PlayerList {
             players: members,
-            current_player: 0,
+            current_index: 0,
         };
     }
 
-    fn next_player(&self) -> usize {
-        //TODO wrap counting to account for dealer and size of PlayerList (self)
-        let mut index = self.current_player;
-        index += 1; // increment
-        index %= 6; // modulus
-        println!("Previous index: {} Current index: {}", index - 1, index);
-        return index;
-    }
+    ///
     pub(crate) fn turn(&mut self, ctx: &mut Deck) {
-        self.players[self.current_player].turn(ctx);
-        self.next_player();
+        // TODO Increment based on turn behaviour.
+        println!("{}", self.current_member());
+        self.current_index += self.players[self.current_index].turn(ctx);
+    }
+
+    ///
+    pub(crate) fn current_member(&self) -> &Member {
+        return &self.players[self.current_index];
     }
 }
