@@ -11,10 +11,8 @@ pub(crate) enum Suit {
 
 //Implements a way to display the suit
 impl fmt::Display for Suit {
-    /// fmt suit returns the string representation of the suit.
+    /// format suit returns the string representation of the suit.
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{:?}", self)
     }
 }
-
-impl Suit {}
