@@ -18,6 +18,5 @@ fn main() {
     let mut game = GameHandler::new();
     game.start();
 
-    println!("{}", game.current_game.deck.cards[0]);
     println!("{:-<1$}", "", 50);
 }
