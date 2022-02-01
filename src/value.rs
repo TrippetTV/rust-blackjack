@@ -2,7 +2,7 @@ use std::fmt;
 use std::fmt::Debug;
 use strum_macros::EnumIter;
 
-#[derive(Debug, EnumIter)]
+#[derive(Debug, Copy, Clone, EnumIter)]
 /// Value is an enum to represent the different card values in a deck.
 pub(crate) enum Value {
     Ace,
@@ -34,15 +34,15 @@ impl Value {
             Value::Eight => 8,
             Value::Nine => 9,
             Value::Ten => 10,
-            Value::Jack => 11,
-            Value::Queen => 12,
-            Value::King => 13,
+            Value::Jack => 10,
+            Value::Queen => 10,
+            Value::King => 10,
         }
     }
 }
 
 impl fmt::Display for Value {
-    /// fmt returns the string representation of the enum.
+    /// format returns the string representation of the enum.
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{:?}", self)
     }
