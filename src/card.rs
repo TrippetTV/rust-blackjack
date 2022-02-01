@@ -3,7 +3,7 @@ use crate::value::Value;
 use std::fmt;
 use suit::Suit;
 
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 pub(crate) struct Card {
     pub(crate) value: Value,
     pub(crate) suit: Suit,
