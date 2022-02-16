@@ -22,6 +22,7 @@ pub(crate) enum Value {
 
 impl Value {
     /// Returns the number of any given enum, or an error if enum is not found.
+    //TODO Ace can be 1 or 11
     pub fn get_number(&self) -> u8 {
         match self {
             Value::Ace => 1,
@@ -42,7 +43,7 @@ impl Value {
 }
 
 impl fmt::Display for Value {
-    /// format returns the string representation of the enum.
+    /// format returns the string representation of the wenum.
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{:?}", self)
     }
