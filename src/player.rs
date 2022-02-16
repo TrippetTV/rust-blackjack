@@ -18,19 +18,31 @@ impl Player {
     }
 
     /// Draws the player a card from the deck and into their hand.
-    pub(crate) fn hit(&mut self, ctx: &mut Deck) {
+    pub(crate) fn hit(&mut self, ctx: &mut Deck, hidden: bool) {
         self.draw_card(ctx);
-        println!("{} hit {}", self.name, self.hand[self.hand.len() - 1]);
+        if !hidden {
+            println!("{} hit {}", self.name, self.hand[self.hand.len() - 1]);
+        }
+        
+        if hidden {
+            println!("{} hit hidden card", self.name)
+        }
+        
+        if self.score > 21 {
+            println!("{} BUSTED !!! with a score of {}", self.name, self.score);
+            self.pass(true)
+        }
     }
 
     ///
-    pub(crate) fn pass(&self) {
+    pub(crate) fn pass(&self, forced: bool) {
         // skip to next turn
-
-        println!("{} passed", self.name);
+        if !forced {
+            println!("{} passed", self.name)
+        }
     }
 
-    /// Draws the first card in the deck, then calls to remove it, then adds the score to current player.
+    /// Draws the first card in the deck, then calls to remove it, then verifies the score of current player.
     fn draw_card(&mut self, ctx: &mut Deck) {
         self.hand.push(ctx.cards[0]);
         Player::remove_card(ctx);
