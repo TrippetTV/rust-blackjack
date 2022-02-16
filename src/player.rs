@@ -46,7 +46,7 @@ impl Player {
     fn draw_card(&mut self, ctx: &mut Deck) {
         self.hand.push(ctx.cards[0]);
         Player::remove_card(ctx);
-        self.score = self.count_score()
+        self.score = self.count_score();
     }
 
     /// Removes the first card of the deck.
