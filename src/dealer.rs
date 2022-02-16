@@ -1,5 +1,3 @@
-//TODO: A different version of player
-
 use crate::player::Player;
 
 #[derive(Debug)]
