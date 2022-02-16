@@ -4,7 +4,7 @@ use rand::thread_rng;
 use std::fmt;
 use strum::IntoEnumIterator;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Deck {
     pub(crate) cards: Vec<Card>,
 }
@@ -17,12 +17,14 @@ impl fmt::Display for Deck {
 
 impl Deck {
     /// Create a new Deck with a full list of sorted cards.
-    pub(crate) fn new() -> Deck {
+    pub(crate) fn new(amount: u8) -> Deck {
         let mut card_list: Vec<Card> = vec![];
-        // Loop through each Suit and Value and add them to the deck
-        for suit in Suit::iter() {
-            for value in Value::iter() {
-                card_list.push(Card { value, suit });
+
+        for i in 0..amount {
+            for suit in Suit::iter() {
+                for value in Value::iter() {
+                    card_list.push(Card { value, suit });
+                }
             }
         }
 
