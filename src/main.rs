@@ -1,3 +1,4 @@
+mod ai;
 mod card;
 mod dealer;
 mod deck;
