@@ -27,9 +27,13 @@ impl PlayerList {
         };
     }
 
+    pub(crate) fn empty(&mut self) {
+        self.players.drain(0..self.players.len());
+        self.current_index = 0
+    }
+
     ///
     pub(crate) fn turn(&mut self, ctx: &mut Deck) {
-        // TODO Increment based on turn behaviour.
         println!("{}", self.current_member());
         self.current_index += self.players[self.current_index].turn(ctx);
     }
