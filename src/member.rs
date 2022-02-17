@@ -5,6 +5,7 @@ use crate::Deck;
 use std::fmt;
 
 #[derive(Debug)]
+/// Wrapper for Dealer and Player.4 
 pub enum Member {
     Dealer(Dealer),
     Player(Player),
@@ -28,19 +29,18 @@ impl fmt::Display for Member {
 }
 
 impl Member {
-    /// Turn behaviour
+    /// Determines whether this member should hit or pass depending on self
     pub(crate) fn turn(&mut self, ctx: &mut Deck) -> usize {
         // Return if hit or pass
         return match self {
             Member::Dealer(dealer) => {
                 if dealer.player.score >= 17 {
-                    dealer.player.pass(false);
-                    1
+                    dealer.player.pass(false)
                 } else {
-                    dealer.player.hit(ctx, false);
-                    0
+                    dealer.player.hit(ctx, false)
                 }
             }
+            // TODO Comment
             Member::Player(player) => {
                 let ai: AI = AI {
                     deck: ctx.clone(),
@@ -48,13 +48,15 @@ impl Member {
                 };
 
                 let odds = ai.odds().floor();
+                // TODO Comment
                 if odds >= 50.0 {
                     println!("{}: The odds are in my favor! {}%", player.name, odds);
-                    player.hit(ctx, false);
-                    0
-                } else {
-                    player.pass(false);
-                    1
+                    player.hit(ctx, false)
+                }
+                // TODO Comment
+                else {
+                    println!("{}: The odds are not in my favor... {}%", player.name, odds);
+                    player.pass(false)
                 }
             }
         };
