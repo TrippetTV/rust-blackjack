@@ -6,6 +6,7 @@ pub struct Player {
     pub(crate) name: String,
     pub(crate) hand: Vec<Card>,
     pub(crate) score: u8,
+    pub(crate) busted: bool,
 }
 
 impl Player {
@@ -14,32 +15,35 @@ impl Player {
             name,
             hand: vec![],
             score: 0,
+            busted: false,
         }
     }
 
     /// Draws the player a card from the deck and into their hand.
-    pub(crate) fn hit(&mut self, ctx: &mut Deck, hidden: bool) {
+    pub(crate) fn hit(&mut self, ctx: &mut Deck, hidden: bool) -> usize {
         self.draw_card(ctx);
         if !hidden {
             println!("{} hit {}", self.name, self.hand[self.hand.len() - 1]);
         }
-        
         if hidden {
             println!("{} hit hidden card", self.name)
         }
-        
+
         if self.score > 21 {
             println!("{} BUSTED !!! with a score of {}", self.name, self.score);
-            self.pass(true)
+            self.busted = true;
+            return self.pass(true);
         }
+        return 0;
     }
 
     ///
-    pub(crate) fn pass(&self, forced: bool) {
+    pub(crate) fn pass(&self, forced: bool) -> usize {
         // skip to next turn
         if !forced {
             println!("{} passed", self.name)
         }
+        return 1;
     }
 
     /// Draws the first card in the deck, then calls to remove it, then verifies the score of current player.
