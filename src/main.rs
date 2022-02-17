@@ -16,8 +16,12 @@ use crate::suit::Suit;
 use crate::value::Value;
 
 fn main() {
+    // Flavor print
+    println!("{:-<1$}", "", 50);
+    // Creates the instance of the game
     let mut game = GameHandler::new();
+    // Starts the game
     game.start();
-
+    // Flavor print
     println!("{:-<1$}", "", 50);
 }
