@@ -2,6 +2,7 @@ use std::fmt;
 use strum_macros::EnumIter;
 
 #[derive(Clone, Copy, Debug, EnumIter)]
+/// Suit represents one of four types in a standard deck of cards.
 pub(crate) enum Suit {
     Hearts,
     Spades,
