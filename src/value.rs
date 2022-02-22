@@ -4,7 +4,7 @@ use strum_macros::EnumIter;
 
 #[derive(Debug, Copy, Clone, EnumIter)]
 /// Value is an enum to represent the different card values in a deck.
-pub(crate) enum Value {
+pub enum Value {
     Ace,
     Two,
     Three,

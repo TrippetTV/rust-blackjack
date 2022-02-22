@@ -6,14 +6,14 @@ use std::ops::Add;
 use std::{thread, time};
 
 #[derive(Debug)]
-/// TODO Comment
+/// Playerlist contains the current list of players and the current player indicated by current_index
 pub struct PlayerList {
-    pub(crate) players: Vec<Member>,
-    pub(crate) current_index: usize,
+    pub players: Vec<Member>,
+    pub current_index: usize,
 }
 
 impl PlayerList {
-    pub(crate) fn new() -> PlayerList {
+    pub fn new() -> PlayerList {
         let mut members: Vec<Member> = vec![];
 
         for i in 0..4 {
@@ -29,23 +29,23 @@ impl PlayerList {
             current_index: 0,
         };
     }
-    
-    /// TODO Comment
-    pub(crate) fn empty(&mut self) {
+
+    /// Removes all players from self.players and resets the index
+    pub fn empty(&mut self) {
         self.players.drain(0..self.players.len());
         self.current_index = 0
     }
 
-    /// TODO Comment
-    pub(crate) fn turn(&mut self, ctx: &mut Deck) {
+    /// Turn behaviour
+    pub fn turn(&mut self, ctx: &mut Deck) {
         println!("{}", self.current_member());
         self.current_index += self.players[self.current_index].turn(ctx);
         println!("{:-<1$}", "", 50);
         thread::sleep(time::Duration::from_millis(2000));
     }
 
-    /// TODO Comment 
-    pub(crate) fn current_member(&self) -> &Member {
+    /// returns the member of the current index
+    pub fn current_member(&self) -> &Member {
         return &self.players[self.current_index];
     }
 }

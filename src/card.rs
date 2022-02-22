@@ -5,9 +5,9 @@ use suit::Suit;
 
 #[derive(Debug, Copy, Clone)]
 /// Represents a value and a suit.
-pub(crate) struct Card {
-    pub(crate) value: Value,
-    pub(crate) suit: Suit,
+pub struct Card {
+    pub value: Value,
+    pub suit: Suit,
 }
 // Displays the card nicely
 impl fmt::Display for Card {

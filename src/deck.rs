@@ -8,7 +8,7 @@ use strum::IntoEnumIterator;
 /// A list of cards.
 pub struct Deck {
     /// a vector of cards
-    pub(crate) cards: Vec<Card>,
+    pub cards: Vec<Card>,
 }
 
 impl fmt::Display for Deck {
@@ -19,7 +19,7 @@ impl fmt::Display for Deck {
 
 impl Deck {
     /// Create a new Deck with a full list of sorted cards.
-    pub(crate) fn new(amount: u8) -> Deck {
+    pub fn new(amount: u8) -> Deck {
         let mut card_list: Vec<Card> = vec![];
         // Amount of decks to be in play
         for _i in 0..amount {
@@ -33,7 +33,7 @@ impl Deck {
         return Deck { cards: card_list };
     }
     /// Shuffle the cards of called deck using a crate called SliceRandom
-    pub(crate) fn deck_shuffle(&mut self) {
+    pub fn deck_shuffle(&mut self) {
         let mut rng = thread_rng();
         self.cards.shuffle(&mut rng);
     }

@@ -6,17 +6,17 @@ use std::{thread, time};
 #[derive(Debug)]
 ///GameHandler handles the game.
 pub struct GameHandler {
-    pub(crate) current_game: Game,
+    pub current_game: Game,
 }
 
 impl GameHandler {
-    pub(crate) fn new() -> GameHandler {
+    pub fn new() -> GameHandler {
         return GameHandler {
             current_game: Game::new(),
         };
     }
     /// Starts a new game with new players.
-    pub(crate) fn start(&mut self) {
+    pub fn start(&mut self) {
         self.current_game.set_table();
         self.current_game.deal_cards();
         self.current_game.play_game();
@@ -26,7 +26,7 @@ impl GameHandler {
         self.end();
     }
     /// Cleans the "table".
-    pub(crate) fn end(&mut self) {
+    pub fn end(&mut self) {
         self.current_game.clean();
     }
     /// Determines all winners through their scores.
@@ -44,9 +44,9 @@ impl GameHandler {
                     if let Member::Dealer(dealer) = &self.current_game.player_list.players
                         [self.current_game.player_list.players.len() - 1]
                     {
-                        // TODO explain why this exists
+                        // If dealer busted skip this iteration and wait for the dealer to handle this case.
                         if dealer.player.busted {
-                            return;
+                            continue;
                         }
                         // If player beat dealer or if dealer busted, print player winning with their score.
                         if (player.score > dealer.player.score && !player.busted)
@@ -57,18 +57,18 @@ impl GameHandler {
                                 player.name, player.score
                             )
                         }
-                        // TODO Comment
+                        // If player tied the dealer and didn't bust.
                         else if player.score == dealer.player.score && !player.busted {
                             println!(
                                 "{} tied against dealer with score {}",
                                 player.name, player.score
                             )
                         }
-                        // TODO Comment
+                        // If player busted.
                         else if player.busted {
                             println!("{} busted with score {}", player.name, player.score)
                         }
-                        // TODO Comment
+                        // Else the player just lost.
                         else {
                             println!(
                                 "{} lost against dealer with score {}",
@@ -85,12 +85,12 @@ impl GameHandler {
 /// Game is the players and the deck.
 #[derive(Debug)]
 pub struct Game {
-    pub(crate) deck: Deck,
-    pub(crate) player_list: PlayerList,
+    pub deck: Deck,
+    pub player_list: PlayerList,
 }
 
 impl Game {
-    pub(crate) fn clean(&mut self) {
+    pub fn clean(&mut self) {
         self.deck.cards.drain(0..self.deck.cards.len());
         self.player_list.empty();
         println!("Table successfully cleaned");
@@ -113,7 +113,7 @@ impl Game {
     }
 
     /// Deal the starting cards for eah player, and hides dealers second card accordingly
-    pub(crate) fn deal_cards(&mut self) {
+    pub fn deal_cards(&mut self) {
         for _i in 0..2 {
             for member in &mut self.player_list.players {
                 match member {

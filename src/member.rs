@@ -1,11 +1,12 @@
-use crate::ai::AI;
+use crate::ai;
 use crate::dealer::Dealer;
 use crate::player::Player;
 use crate::Deck;
+use ai::odds;
 use std::fmt;
 
 #[derive(Debug)]
-/// Wrapper for Dealer and Player.4 
+/// Wrapper for Dealer and Player.4
 pub enum Member {
     Dealer(Dealer),
     Player(Player),
@@ -30,7 +31,7 @@ impl fmt::Display for Member {
 
 impl Member {
     /// Determines whether this member should hit or pass depending on self
-    pub(crate) fn turn(&mut self, ctx: &mut Deck) -> usize {
+    pub fn turn(&mut self, ctx: &mut Deck) -> usize {
         // Return if hit or pass
         return match self {
             Member::Dealer(dealer) => {
@@ -40,20 +41,17 @@ impl Member {
                     dealer.player.hit(ctx, false)
                 }
             }
-            // TODO Comment
+            // Unwraps the Enum and stores the value in player, also creating the instance of the AI
             Member::Player(player) => {
-                let ai: AI = AI {
-                    deck: ctx.clone(),
-                    hand: (*player.hand.to_vec()).to_owned(),
-                };
+                // Check ai.odds() for further details
+                let odds = odds(ctx, &player.hand).floor();
 
-                let odds = ai.odds().floor();
-                // TODO Comment
+                // If the odds are in the players favor to not lose, hit
                 if odds >= 50.0 {
                     println!("{}: The odds are in my favor! {}%", player.name, odds);
                     player.hit(ctx, false)
                 }
-                // TODO Comment
+                // otherwise pass
                 else {
                     println!("{}: The odds are not in my favor... {}%", player.name, odds);
                     player.pass(false)

@@ -3,14 +3,14 @@ use std::fmt;
 
 #[derive(Debug)]
 pub struct Player {
-    pub(crate) name: String,
-    pub(crate) hand: Vec<Card>,
-    pub(crate) score: u8,
-    pub(crate) busted: bool,
+    pub name: String,
+    pub hand: Vec<Card>,
+    pub score: u8,
+    pub busted: bool,
 }
 
 impl Player {
-    pub(crate) fn new(name: String) -> Player {
+    pub fn new(name: String) -> Player {
         Player {
             name,
             hand: vec![],
@@ -20,7 +20,7 @@ impl Player {
     }
 
     /// Draws the player a card from the deck and into their hand.
-    pub(crate) fn hit(&mut self, ctx: &mut Deck, hidden: bool) -> usize {
+    pub fn hit(&mut self, ctx: &mut Deck, hidden: bool) -> usize {
         self.draw_card(ctx);
         if !hidden {
             println!("{} hit {}", self.name, self.hand[self.hand.len() - 1]);
@@ -38,7 +38,7 @@ impl Player {
     }
 
     ///
-    pub(crate) fn pass(&self, forced: bool) -> usize {
+    pub fn pass(&self, forced: bool) -> usize {
         // skip to next turn
         if !forced {
             println!("{} passed", self.name)
