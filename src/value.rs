@@ -22,7 +22,6 @@ pub enum Value {
 
 impl Value {
     /// Returns the number of any given enum, or an error if enum is not found.
-    //TODO Ace can be 1 or 11
     pub fn get_number(&self) -> u8 {
         match self {
             Value::Ace => 1,
