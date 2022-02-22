@@ -22,7 +22,8 @@ impl GameHandler {
         self.current_game.play_game();
         println!("{:-<1$}", "", 50);
         self.determine_winners();
-        //stdin().read_line(&mut String::new());
+        // There currently is no reason to end the game. This was implemented as a way to play a
+        // second round in the terminal, but never had the time to develop the loops
         self.end();
     }
     /// Cleans the "table".
